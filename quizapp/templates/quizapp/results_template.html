@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Викторина - Жыйынтыктар</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; text-align: center; }
+        .container { max-width: 600px; margin: auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        p { font-size: 1.2em; margin-bottom: 20px; }
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        a.button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Викторина Аяктады!</h1>
+        <p>Сиздин жыйынтыгыңыз:</p>
+        <h2>{{ score }} / {{ total_questions }}</h2>
+        
+        {% if total_questions > 0 %}
+        <p>Туура жооптордун пайызы: <strong>{{ percentage|floatformat:2 }}%</strong></p>
+        {% else %}
+            <p>Суроолор берилген жок.</p>
+        {% endif %}
+
+        <br>
+        <a href="{% url 'quiz_start_page' %}" class="button">Кайра ойноо</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Викторина - Суроо {{ question.id }}</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
+        .container { max-width: 600px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; text-align: center; }
+        .question-text { font-size: 1.2em; margin-bottom: 20px; }
+        .options button { display: block; width: 100%; padding: 10px; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
+        .options button:hover { background-color: #0056b3; }
+        .progress { text-align: center; margin-bottom: 20px; font-size: 0.9em; color: #555;}
+        .score { text-align: right; font-weight: bold; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Викторина Оюну</h2>
+        <p class="score">Упай: {{ current_score }}</p>
+        <p class="progress">Суроо {{ question_index | add:1 }} / {{ total_questions }}</p>
+        
+        <hr>
+
+        <p class="question-text">{{ question.text }}</p>
+
+        <form method="post" action="{% url 'quiz_question_page' question_id=question.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="question_index_answered" value="{{ question_index }}">
+            <div class="options">
+                {% for option in question.options %}
+                    <button type="submit" name="option" value="{{ forloop.counter0 }}">
+                        {{ option }}
+                    </button>
+                {% endfor %}
+            </div>
+        </form>
+        
+    </div>
+</body>
+</html>
